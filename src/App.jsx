@@ -11,6 +11,8 @@ import { ProbabilityDistribution } from './components/ProbabilityDistribution';
 import { InsightsPanel } from './components/InsightsPanel';
 
 import { parseCSVData, calculateAccuracyMetrics, getConfusionMatrix } from './lib/data';
+import RyderCupLogo from './assets/ryder-cup-logo.svg';
+import CapgeminiLogo from './assets/capgemini-logo.svg';
 import './App.css';
 
 // Loading component for suspense
@@ -151,7 +153,7 @@ ${metrics.accuracyByOutcome.draw.accuracy === 0 ? '⚠ Critical: 0% accuracy on 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center py-6 gap-4">
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold text-blue-600">
                 Ryder Cup 2025 - ML Prediction Analysis
               </h1>
               <p className="text-gray-600 mt-1 text-sm md:text-base">

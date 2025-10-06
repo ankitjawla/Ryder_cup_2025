@@ -4,6 +4,14 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Lightbulb, TrendingDown, AlertTriangle, Target } from 'lucide-react';
 
+/**
+ * InsightsPanel component provides a summary of model performance,
+ * highlights key issues, and offers actionable recommendations.
+ * 
+ * Regulatory Note:
+ * - All recommendations and findings are version-controlled and auditable.
+ * - Code and logic are documented for compliance and review.
+ */
 export const InsightsPanel = memo(function InsightsPanel({ data, metrics }) {
   const { overallAccuracy, accuracyByOutcome, accuracyByRound } = metrics;
 
@@ -34,11 +42,15 @@ export const InsightsPanel = memo(function InsightsPanel({ data, metrics }) {
     match.actualOutcome.toLowerCase().includes('draw')
   );
 
+  // Recommendations for model improvement (icons removed as per requirements)
   const recommendations = [
     {
       type: 'critical',
-      icon: <AlertTriangle className="h-5 w-5" />,
-      title: 'Draw Prediction Challenge',
+      title: (
+        <span style={{ color: '#ef4444', fontWeight: 700, verticalAlign: 'middle', display: 'inline-block', lineHeight: 1 }}>
+          Draw Prediction Challenge
+        </span>
+      ),
       description: `The model failed to correctly predict any draws (0% accuracy). With ${actualDraws.length} actual draws in the tournament, this represents a significant blind spot.`,
       suggestions: [
         'Incorporate more features that indicate close matches (e.g., historical head-to-head records)',
@@ -48,7 +60,6 @@ export const InsightsPanel = memo(function InsightsPanel({ data, metrics }) {
     },
     {
       type: 'warning',
-      icon: <TrendingDown className="h-5 w-5" />,
       title: 'Overall Accuracy Concerns',
       description: `At ${overallAccuracy.toFixed(1)}%, the model performs below random chance for a 3-outcome prediction (33.3%).`,
       suggestions: [
@@ -62,7 +73,6 @@ export const InsightsPanel = memo(function InsightsPanel({ data, metrics }) {
   if (worstRounds.length > 0) {
     recommendations.push({
       type: 'improvement',
-      icon: <Target className="h-5 w-5" />,
       title: 'Round-Specific Issues',
       description: `Rounds ${worstRounds.map(([round]) => round).join(' and ')} showed particularly poor performance.`,
       suggestions: [
@@ -76,7 +86,6 @@ export const InsightsPanel = memo(function InsightsPanel({ data, metrics }) {
   if (highConfidenceIncorrect.length > 0) {
     recommendations.push({
       type: 'insight',
-      icon: <Lightbulb className="h-5 w-5" />,
       title: 'Overconfident Predictions',
       description: `${highConfidenceIncorrect.length} high-confidence predictions were incorrect, suggesting model calibration issues.`,
       suggestions: [
@@ -150,9 +159,8 @@ export const InsightsPanel = memo(function InsightsPanel({ data, metrics }) {
         
         {recommendations.map((rec, index) => (
           <Alert key={index} variant={getAlertVariant(rec.type)} className="p-4">
-            <div className={`${getIconColor(rec.type)}`}>
-              {rec.icon}
-            </div>
+            {/* Icon removed as per requirements */}
+            <div className={`${getIconColor(rec.type)}`}></div>
             <div className="ml-2">
               <h4 className="font-semibold mb-2">{rec.title}</h4>
               <AlertDescription className="mb-3">
